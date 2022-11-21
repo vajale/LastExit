@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e5c756307a848f49919a84c0233d6e8, type: 3}
+  m_Name: Pistol
+  m_EditorClassIdentifier: 
+  weaponTypeId: 10
+  fireRate: 0.1
+  spreadMultiplier: 0.1
+  ammoConsumption: 1
+  useSpread: 1
+  lightDuration: 0.1
+  muzzleParticles: {fileID: 4742348811577898604, guid: 2735bebe54c1f5a4096f5134a96f7e77, type: 3}
+  sparkParticles: {fileID: 4742348811577898604, guid: 2735bebe54c1f5a4096f5134a96f7e77, type: 3}
+  muzzleFlashLight: {fileID: 4063260465274573668, guid: 25a6bd588ee932f4f8be552fd0fae250, type: 3}
+  shootSound: {fileID: 8300000, guid: 9e9480b4d07646942b555fd43f2a0f71, type: 3}
+  reloadSound: {fileID: 8300000, guid: 125edb9e36f963249bc792cca38492b1, type: 3}
+  preFab: {fileID: 2923187766730355472, guid: 9d5175195f056114babd3b4efa3b1c82, type: 3}

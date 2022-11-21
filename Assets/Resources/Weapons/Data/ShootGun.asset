@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e5c756307a848f49919a84c0233d6e8, type: 3}
+  m_Name: ShootGun
+  m_EditorClassIdentifier: 
+  weaponTypeId: 20
+  fireRate: 0.3
+  spreadMultiplier: 0
+  ammoConsumption: 3
+  useSpread: 1
+  lightDuration: 0
+  muzzleParticles: {fileID: 0}
+  sparkParticles: {fileID: 0}
+  shootSound: {fileID: 8300000, guid: 0addcc409a57b4a43b86a3d2310ac5b4, type: 3}
+  muzzleFlashLight: {fileID: 0}
+  preFab: {fileID: 3406539598376722197, guid: 24c49f5b6c9e68b42bcdac1c72713fb9, type: 3}
