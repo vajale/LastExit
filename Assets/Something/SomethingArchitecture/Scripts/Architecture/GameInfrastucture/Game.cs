@@ -30,11 +30,11 @@ namespace Something.Scripts.Architecture.GameInfrastucture
         {
             if (isTest)
             {
-                InitializeGameStateMachine();
+                InitializeTestingGame();
             }
             else
             {
-                InitializeTestingGame();
+                InitializeGameStateMachine();
             }
 
             StateMachine.SetState<GameBoostrapState>();
