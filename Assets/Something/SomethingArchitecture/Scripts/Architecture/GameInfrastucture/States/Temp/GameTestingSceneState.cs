@@ -43,6 +43,7 @@ namespace Something.Scripts.Architecture.GameInfrastucture
             _sceneReferenceService = new SceneReferenceService();
             _gameplayService = new GameplayService(_dataService);
         }
+        
         private void CreateGameWorld()
         {
             _sceneReferenceService.Initialize();
