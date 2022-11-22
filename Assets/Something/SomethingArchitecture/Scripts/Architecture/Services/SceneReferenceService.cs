@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Something.Scripts.Architecture.Services.ServiceLocator;
 using Something.Scripts.Architecture.Utilities;
 using Something.Scripts.Something.Spawners;
@@ -13,7 +14,7 @@ namespace Something.Scripts.Architecture.GameInfrastucture
     {
         private MainCamera _mainCamera;
         private NavMeshSurface _navMeshSurface;
-        private EnemySquadSpawner[] _enemySpawners;
+        private List<EnemySquadSpawner> _enemySpawners;
         private Vector3 _playerSpawnPosition;
         private bool _isInitialized;
 
@@ -28,10 +29,6 @@ namespace Something.Scripts.Architecture.GameInfrastucture
             InitializeSpawnPosition();
             InitializeNavMesh();
             InitializeMainCamera();
-            
-            Debug.Log(SceneManager.GetActiveScene().name + " is active scene to find Reference");
-            
-            _isInitialized = true;
         }
 
         public MainCamera GetMainCamera() =>
@@ -40,18 +37,20 @@ namespace Something.Scripts.Architecture.GameInfrastucture
         public NavMeshSurface GetNavMeshSurface() =>
             CheckInitialize() == false ? null : _navMeshSurface;
 
-        public EnemySquadSpawner[] GetSpawners() =>
-            CheckInitialize() == false ? null : _enemySpawners;
+        public IReadOnlyList<EnemySquadSpawner> GetSpawners()
+        {
+            return _enemySpawners;
+        }
 
         public Vector3 GetPlayerSpawnPosition() =>
             CheckInitialize() ? new Vector3() : _playerSpawnPosition;
 
         private bool CheckInitialize()
         {
-            if (_isInitialized == false)
-            {
-                throw new Exception("Scene references not has been initialized and cannot return Scene gameObject");
-            }
+            // if (_isInitialized == false)
+            // {
+            //     throw new Exception("Scene references not has been initialized and cannot return Scene gameObject");
+            // }
 
             return true;
         }
@@ -59,43 +58,64 @@ namespace Something.Scripts.Architecture.GameInfrastucture
         private void InitializeMainCamera()
         {
             var component = FindOnScene<MainCamera>(Tags.MainCamera);
+
+            if (SearchIsFailed(component)) return;
+
             _mainCamera = component;
+        }
+
+        private bool SearchIsFailed(object component)
+        {
+            if (component == null)
+            {
+                throw new Exception(component.ToString() + "нету его на");
+            }
+
+            return false;
         }
 
         private void InitializeNavMesh()
         {
             var component = FindOnScene<NavMeshSurface>(Tags.NavMeshSurface);
+            if (SearchIsFailed(component)) return;
             _navMeshSurface = component;
         }
 
         private void InitializeSpawnPosition()
         {
-            //SceneReferenceFinderExtensions.FindByTag(Tags.PlayerSpawn, out var gameObject);
-            //_playerSpawnPosition = gameObject == null ? gameObject.transform.position : new Vector3();
+            SceneReferenceFinderExtensions.FindByTag(Tags.PlayerSpawn, out var gameObject);
+            _playerSpawnPosition = gameObject == null ? gameObject.transform.position : new Vector3();
         }
 
         private T FindOnScene<T>(string tag) where T : MonoBehaviour
         {
             var taggedGameObject = SceneReferenceFinderExtensions.FindByTag(tag);
-            taggedGameObject.TryGetComponent(out T component);
 
-            if (component == null)
-                throw new Exception(component + " component is  not contains on " + taggedGameObject.name);
+            if (taggedGameObject != null)
+            {
+                taggedGameObject.TryGetComponent(out T component);
 
-            return component;
+                if (component == null)
+                    throw new Exception(component + " component is  not contains on " + taggedGameObject.name);
+
+                
+                return component;
+            }
+
+            return null;
         }
 
         private void InitializeSpawners()
         {
             var spawners = SceneReferenceFinderExtensions.FindByTags(Tags.EnemySpawner);
-            var array = new EnemySquadSpawner[spawners.Length];
+            Debug.Log(spawners[0].gameObject.name);
 
-            for (var i = 0; i < spawners.Length; i++)
+            _enemySpawners = new List<EnemySquadSpawner>();
+
+            foreach (var spawner in spawners)
             {
-                array[i] = spawners[i].GetComponent<EnemySquadSpawner>();
+                _enemySpawners.Add(spawner.GetComponent<EnemySquadSpawner>());
             }
-
-            _enemySpawners = array;
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Something.Scripts.Something.Spawners
             _enemyFactory = enemyFactory;
         }
 
-        private EnemySquad CreateSquad()
+        public EnemySquad CreateSquad()
         {
             var enemyArray = new EnemyCharacter[spawnPositions.Length];
 

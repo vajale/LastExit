@@ -1,6 +1,7 @@
 ﻿using Something.Scripts.Architecture.Services;
 using Something.Scripts.Architecture.Services.ServiceLocator;
 using Something.Scripts.Architecture.Utilities;
+using Something.Scripts.Something;
 using Something.Scripts.Something.Characters.MoveControllers.States;
 using Something.SomethingArchitecture.Scripts.Architecture;
 using Something.SomethingArchitecture.Scripts.Architecture.Factory.Interface;
@@ -47,16 +48,37 @@ namespace Something.Scripts.Architecture.GameInfrastucture
         private void CreateGameWorld()
         {
             _sceneReferenceService.Initialize();
+            _gameplayService.UpdateReferences();
             
             var inputService = ServiceLocator.GetService<PlayerInputService>();
-            
             var playerSession = new Player(inputService);
-    
-            
-            CreatePlayerGUI(ref playerSession);
-            
+
+            var character = CreateCharacter(out var playerCharacter);
+
+            playerSession.SetCharacter(character, playerCharacter);
+            playerSession.SetInputContext(InputContextType.PlayerCharacter);
+
+            InitializeCamera(character);
+
+            _gameplayService.CreateEnemyWave();
+
             Cursor.lockState = CursorLockMode.Locked;
         }
+
+        private void InitializeCamera(Character character)
+        {
+            var mainCamera = _sceneReferenceService.GetMainCamera();
+            mainCamera.Initalize(character);
+            mainCamera.StateMachine.SetState<CameraPlayerState>();
+        }
+
+        private Character CreateCharacter(out PlayerCharacter playerCharacter)
+        {
+            var spawmPos = _sceneReferenceService.GetPlayerSpawnPosition();
+            var character = _gameplayService.CreatePlayerCharacter(out playerCharacter, spawmPos);
+            return character;
+        }
+
 
         private PlayerUIView CreatePlayerGUI(ref Player playerSession)
         {

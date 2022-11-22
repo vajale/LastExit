@@ -13,7 +13,7 @@ namespace Something.Scripts.Architecture.GameInfrastucture.States
         private readonly StateMachine<IState> _stateMachine;
         private readonly bool _isTest;
 
-        public GameBoostrapState(StateMachine<IState> stateMachine,  bool isTest)
+        public GameBoostrapState(StateMachine<IState> stateMachine, bool isTest)
         {
             _stateMachine = stateMachine;
             _isTest = isTest;
@@ -27,6 +27,12 @@ namespace Something.Scripts.Architecture.GameInfrastucture.States
 
         private void SetGameState()
         {
+            if (_isTest)
+            {
+                _stateMachine.SetState<GameTestingSceneState>();
+                return;
+            }
+
             _stateMachine.SetState<GameMainMenuState>();
         }
 
