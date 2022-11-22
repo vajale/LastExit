@@ -14,15 +14,15 @@ namespace SomethingArchitecture.Scripts.Architecture.Factory
     {
         private bool _isPlayerCharacterInstantiated;
 
-        public Character CreatePlayerCharacter(Vector3 position, CharacterData data,
-            out PlayerCharacter playerCharacter)
+        public PlayerCharacterView CreatePlayerCharacter(Vector3 position, CharacterData data,
+            out PlayerCharacterModel playerCharacterModel)
         {
             if (_isPlayerCharacterInstantiated)
                 throw new Exception("Player character has already been instantiated");
 
             var characterInstance = Object.Instantiate(data.PreFab, position, Quaternion.identity);
 
-            characterInstance.TryGetComponent(out Character characterView);
+            characterInstance.TryGetComponent(out PlayerCharacterView characterView);
             if (characterView == null)
                 throw new Exception("The character player's prefab has no component found CharacterView!");
 
@@ -37,10 +37,10 @@ namespace SomethingArchitecture.Scripts.Architecture.Factory
             var health = new Health(data.HealthPointCount);
             var unitBody = new UnitBody(health, unitBodyComponent);
             var moveController = new StandartMoveController(data, characterControllerComponent);
-            var character = new PlayerCharacter(unitBody, moveController,new Inventory(30));
+            var character = new PlayerCharacterModel(unitBody, moveController,new Inventory(30));
 
-            playerCharacter = character;
-            characterView.ViewInit(playerCharacter);
+            playerCharacterModel = character;
+            characterView.InitializeModel(playerCharacterModel);
             _isPlayerCharacterInstantiated = true;
 
             return characterView;

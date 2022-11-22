@@ -55,27 +55,29 @@ namespace Something.Scripts.Architecture.GameInfrastucture
 
             var character = CreateCharacter(out var playerCharacter);
 
-            playerSession.SetCharacter(character, playerCharacter);
+            playerSession.SetCharacter(playerCharacter);
             playerSession.SetInputContext(InputContextType.PlayerCharacter);
 
             InitializeCamera(character);
 
             _gameplayService.CreateEnemyWave();
+            
+            _gameplayService.GiveWeapon(WeaponTypeId.Rifle);
 
             Cursor.lockState = CursorLockMode.Locked;
         }
 
-        private void InitializeCamera(Character character)
+        private void InitializeCamera(PlayerCharacterView playerCharacterView)
         {
             var mainCamera = _sceneReferenceService.GetMainCamera();
-            mainCamera.Initalize(character);
+            mainCamera.Initalize(playerCharacterView);
             mainCamera.StateMachine.SetState<CameraPlayerState>();
         }
 
-        private Character CreateCharacter(out PlayerCharacter playerCharacter)
+        private PlayerCharacterView CreateCharacter(out PlayerCharacterModel playerCharacterModel)
         {
             var spawmPos = _sceneReferenceService.GetPlayerSpawnPosition();
-            var character = _gameplayService.CreatePlayerCharacter(out playerCharacter, spawmPos);
+            var character = _gameplayService.CreatePlayerCharacter(out playerCharacterModel, spawmPos);
             return character;
         }
 

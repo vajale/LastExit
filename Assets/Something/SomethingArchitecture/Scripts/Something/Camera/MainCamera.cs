@@ -21,13 +21,13 @@ namespace Something.SomethingArchitecture.Scripts.Something.Camera
 
         public IStateMachine<IUpdatableState> StateMachine => _stateMachine;
 
-        public void Initalize(Character character)
+        public void Initalize(PlayerCharacterView playerCharacterView)
         {
             _stateMachine = new StateMachine<IUpdatableState>();
 
             _stateMap = new Dictionary<Type, IUpdatableState>
             {
-                [typeof(CameraPlayerState)] = new CameraPlayerState(character, this.transform, _config)
+                [typeof(CameraPlayerState)] = new CameraPlayerState(playerCharacterView, this.transform, _config)
             };
 
             _stateMachine.Initialize(_stateMap);

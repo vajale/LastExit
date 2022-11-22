@@ -6,6 +6,6 @@ namespace Something.SomethingArchitecture.Scripts.Architecture.Factory.Interface
 {
     public interface ICharacterFactory
     {
-        Character CreatePlayerCharacter(Vector3 position, CharacterData data, out PlayerCharacter playerCharacter);
+        PlayerCharacterView CreatePlayerCharacter(Vector3 position, CharacterData data, out PlayerCharacterModel playerCharacterModel);
     }
 }

@@ -13,9 +13,9 @@ namespace Something.Scripts.Something
         private bool _isReady;
         private Vector3 _bodyVector;
 
-        public CameraPlayerState(Character playerCharacter, Transform cameraTransform, CameraConfig config = null)
+        public CameraPlayerState(PlayerCharacterView playerPlayerCharacterView, Transform cameraTransform, CameraConfig config = null)
         {
-            _characterCameraTransform = playerCharacter.CameraTransform;
+            _characterCameraTransform = playerPlayerCharacterView.CameraTransform;
             _cameraTransform = cameraTransform;
             _config = config;
         }
