@@ -15,3 +15,8 @@ namespace Something.Scripts.Something.EnemyWave
         }
     }
 }
+
+
+namespace Something.Scripts.Something.AI
+{
+}

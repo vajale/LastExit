@@ -20,7 +20,7 @@ namespace Something.Scripts.Something.AI
 
         public void Update()
         {
-            Current.Execute();
+            Current?.Execute();
         }
 
         public void Undo()
@@ -31,5 +31,6 @@ namespace Something.Scripts.Something.AI
             var undoCommand = _commands.Pop();
             undoCommand.Undo();
         }
+        
     }
 }

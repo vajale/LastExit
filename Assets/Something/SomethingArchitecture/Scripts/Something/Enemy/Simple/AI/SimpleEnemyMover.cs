@@ -14,12 +14,7 @@ namespace Something.Scripts.Something.AI
             _navMeshAgent = navMeshAgent;
             _speed = speed;
 
-            _transformComponent = _navMeshAgent.gameObject.GetComponent<Transform>();
-        }
-
-        private void Initialize()
-        {
-            _navMeshAgent.acceleration = _speed;
+            _transformComponent = navMeshAgent.transform;
         }
 
         public void Move(Vector3 to)
