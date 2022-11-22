@@ -4,7 +4,6 @@ using Something.Scripts.Architecture.Utilities;
 using Something.Scripts.Something;
 using Something.Scripts.Something.Characters;
 using Something.SomethingArchitecture.Scripts.Something.Camera;
-using Something.SomethingArchitecture.Scripts.Something.Characters.Base;
 using Vector2 = System.Numerics.Vector2;
 
 namespace Something.SomethingArchitecture.Scripts.Architecture
@@ -39,7 +38,7 @@ namespace Something.SomethingArchitecture.Scripts.Architecture
             _contextCurrent = new InputContext(ref inputService);
         }
 
-        public void SetCharacter(Character view, IControllablePlayableCharacter controllablePlayableCharacter)
+        public void SetCharacter(IControllablePlayableCharacter controllablePlayableCharacter)
         {
             if (_controllablePlayableCharacter != null)
                 _controllablePlayableCharacter.RemoveInputContext();

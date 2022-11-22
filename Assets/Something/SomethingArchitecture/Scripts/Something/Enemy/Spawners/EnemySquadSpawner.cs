@@ -30,7 +30,8 @@ namespace Something.Scripts.Something.Spawners
             for (var i = 0; i < spawnPositions.Length; i++)
             {
                 var point = spawnPositions[i];
-                enemyArray[i] = _enemyFactory.Create(point.ID, point.transform.position);
+                _enemyFactory.Create(point.ID, point.transform.position, out var model);
+                enemyArray[i] = model;
             }
 
             var newSquad = new EnemySquad(enemyArray, _target);
@@ -55,7 +56,7 @@ namespace Something.Scripts.Something.Spawners
         public void LoadProgress(IPlayerProgress playerProgress)
         {
             var worldProgress = playerProgress.WorldProgress;
-            worldProgress.EliminateProgress.Get(this, out var flag );
+            worldProgress.EliminateProgress.Get(this, out var flag);
             _isEliminated = flag;
         }
 

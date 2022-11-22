@@ -55,7 +55,7 @@ namespace Something.SomethingArchitecture.Scripts.Architecture.GameInfrastucture
             var character = _gameplay.CreatePlayerCharacter(out var playerCharacter, spawmPos);
             var mainCamera = _sceneReference.GetMainCamera();
 
-            _playerSession.SetCharacter(character, playerCharacter);
+            _playerSession.SetCharacter(playerCharacter);
             _playerSession.SetInputContext(InputContextType.PlayerCharacter);
 
             mainCamera.Initalize(character);

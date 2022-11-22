@@ -9,6 +9,7 @@ namespace Something.SomethingArchitecture.Scripts.Something.Characters.Enemy
 
         public IPlayableCharacter Target { get; private set; }
         public IEnemyMover Mover { get; private set; }
+
         public Health Health { get; private set; }
 
         public EnemyCharacter(UnitBody unitBody, IEnemyMover mover, IEnemyAI enemyAI)
@@ -18,7 +19,12 @@ namespace Something.SomethingArchitecture.Scripts.Something.Characters.Enemy
             Health = unitBody.Health;
         }
 
-        public void SwitchTarget(ref IPlayableCharacter playableCharacter)
+        public void Update()
+        {
+            _enemyAI.UpdateProgress();
+        }
+
+        public void SetTarget(ref IPlayableCharacter playableCharacter)
         {
             _enemyAI.SwitchTarget(playableCharacter);
         }
@@ -27,28 +33,5 @@ namespace Something.SomethingArchitecture.Scripts.Something.Characters.Enemy
         {
             _enemyAI.SetCommand(command);
         }
-
-        #region shitas
-
-        public void Initialize()
-        {
-            Health.Ended += OnHealthEnd;
-            //_characterView.Destroyed += Uinitialize;
-            //_characterView.FindTarget += _enemyAI.SwitchTarget;
-        }
-
-        private void Uinitialize()
-        {
-            Health.Ended -= OnHealthEnd;
-            //_characterView.Destroyed -= Uinitialize;
-            //_characterView.FindTarget -= _enemyAI.SwitchTarget;
-        }
-
-        private void OnHealthEnd()
-        {
-            //_characterView.Die();
-        }
-
-        #endregion
     }
 }
