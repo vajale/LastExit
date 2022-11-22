@@ -14,7 +14,6 @@ namespace Something.Scripts.Something.EnemyWave
         
         public void Execute()
         {
-            Debug.Log("sda");
             _mover.Rotate();
         }
 

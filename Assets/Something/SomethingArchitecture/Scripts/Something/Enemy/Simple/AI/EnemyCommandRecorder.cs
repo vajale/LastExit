@@ -31,6 +31,5 @@ namespace Something.Scripts.Something.AI
             var undoCommand = _commands.Pop();
             undoCommand.Undo();
         }
-        
     }
 }
