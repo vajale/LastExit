@@ -8,5 +8,6 @@ namespace Something.Scripts.Something.AI
         void StandBy(Vector3 to);
         void Stand(Vector3 to);
         void StopMoving();
+        void Rotate();
     }
 }

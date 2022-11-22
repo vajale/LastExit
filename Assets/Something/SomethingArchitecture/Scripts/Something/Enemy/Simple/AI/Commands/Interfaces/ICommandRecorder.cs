@@ -4,5 +4,6 @@
     {
         void Record(ICommand command);
         void Undo();
+        void Update();
     }
 }
