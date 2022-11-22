@@ -9,6 +9,7 @@ namespace Something.Scripts.Architecture.GameInfrastucture
     {
         PlayerCharacter GetCurrentCharacter();
         Character CreatePlayerCharacter(out PlayerCharacter playerCharacter, Vector3 spawnPosition);
+        void UpdateReferences();
         void GiveWeapon(WeaponTypeId id);
         void SpawnEnemy();
         void CreateEnemyWave();

@@ -25,7 +25,7 @@ namespace Something.Scripts.Architecture.GameInfrastucture
         private readonly ICharacterFactory _characterFactory;
         private readonly PlayerUIFactory _playerUIFactory;
         private readonly SaveLoadService _saveLoadService;
-        
+
         private PlayerCharacter _playerCharacter;
         private MainCamera _mainCamera;
 
@@ -42,20 +42,27 @@ namespace Something.Scripts.Architecture.GameInfrastucture
             _sceneReferenceService = ServiceLocator.GetService<SceneReferenceService>();
         }
 
+        public void UpdateReferences()
+        {
+            ServiceLocator.GetService<SceneReferenceService>().Initialize();
+        }
+
         public PlayerCharacter GetCurrentCharacter()
         {
             if (_playerCharacter != null)
             {
                 throw new Exception("CurrentCharacter not is instatiated");
             }
-            
+
             return _playerCharacter;
         }
+
 
         public Character CreatePlayerCharacter(out PlayerCharacter playerCharacter, Vector3 spawnPosition)
         {
             var characterPlayerData = _dataService.GetPlayerData();
-            var characterView = _characterFactory.CreatePlayerCharacter(spawnPosition, characterPlayerData, out var model);
+            var characterView =
+                _characterFactory.CreatePlayerCharacter(spawnPosition, characterPlayerData, out var model);
 
             playerCharacter = model;
             _playerCharacter = model;
@@ -80,6 +87,11 @@ namespace Something.Scripts.Architecture.GameInfrastucture
                 InitializeEnemySpawners(_playerCharacter);
                 _spawnersIsInitialized = true;
             }
+
+            foreach (var spawner in _sceneReferenceService.GetSpawners())
+            {
+                spawner.CreateSquad();
+            }
         }
 
         public void CreateEnemyWaveByDestination()
@@ -98,6 +110,8 @@ namespace Something.Scripts.Architecture.GameInfrastucture
         private void InitializeEnemySpawners(IPlayableCharacter playableCharacter)
         {
             var enemySpawners = _sceneReferenceService.GetSpawners();
+            Debug.Log(enemySpawners);
+
             foreach (var spawner in enemySpawners)
             {
                 spawner.GetComponent<EnemySquadSpawner>().Initialize(_enemyFactory, ref playableCharacter);

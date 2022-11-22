@@ -43,7 +43,7 @@ namespace Something.SomethingArchitecture.Scripts.Something.Characters.Base
         {
             var nextIndex = axis * 10 + _currentWeaponIndex;
 
-            if (nextIndex < 0 || nextIndex > 1)
+            if (nextIndex is < 0 or > 1)
             {
                 nextIndex = 0;
             }
@@ -97,6 +97,7 @@ namespace Something.SomethingArchitecture.Scripts.Something.Characters.Base
             {
                 return;
             }
+
             _equippedList.Add(weapon);
         }
     }
