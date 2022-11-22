@@ -15,7 +15,12 @@ namespace Something.Scripts.Something.AI
         public void Record(ICommand command)
         {
             _commands.Push(command);
-            command.Execute();
+            Current = command;
+        }
+
+        public void Update()
+        {
+            Current?.Execute();
         }
 
         public void Undo()

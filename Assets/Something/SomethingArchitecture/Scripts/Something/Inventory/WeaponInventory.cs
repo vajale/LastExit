@@ -49,7 +49,7 @@ namespace Something.SomethingArchitecture.Scripts.Something.Characters.Base
             }
 
             _currentWeaponIndex = (int) nextIndex;
-            if (_equippedList != null)
+            if (_equippedList != null & _currentWeaponIndex < _equippedList.Count)
             {
                 SetInteractWeapon(_currentWeaponIndex);
             }

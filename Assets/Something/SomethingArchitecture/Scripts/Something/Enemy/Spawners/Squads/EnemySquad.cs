@@ -20,7 +20,7 @@ namespace Something.Scripts.Something.EnemyWave
             foreach (var unit in _units)
             {
                 unit.SetTarget(ref _target);
-                unit.SetCommand(new SearchTargetCommand());
+                unit.SetCommand(new SearchTargetCommand(unit.Mover));
             }
         }
     }

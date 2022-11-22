@@ -5,6 +5,7 @@ namespace Something.Scripts.Something.AI
 {
     public class SimpleEnemyMover : IEnemyMover
     {
+        private Transform _transformComponent;
         private NavMeshAgent _navMeshAgent;
         private float _speed;
 
@@ -12,11 +13,8 @@ namespace Something.Scripts.Something.AI
         {
             _navMeshAgent = navMeshAgent;
             _speed = speed;
-        }
 
-        private void Initialize()
-        {
-            _navMeshAgent.acceleration = _speed;
+            _transformComponent = navMeshAgent.transform;
         }
 
         public void Move(Vector3 to)
@@ -38,6 +36,11 @@ namespace Something.Scripts.Something.AI
         public void StopMoving()
         {
             _navMeshAgent.Stop();
+        }
+
+        public void Rotate()
+        {
+            _transformComponent.Rotate(0, 2, 0);
         }
     }
 }

@@ -28,7 +28,7 @@ namespace Something.Scripts.Something.AI
 
         public void UpdateProgress()
         {
-            
+            _commandRecorder.Update();
         }
     }
 }
