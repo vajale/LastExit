@@ -17,7 +17,7 @@ namespace Something.SomethingArchitecture.Scripts.Architecture.Factory
         {
             _staticDataService = staticDataService;
         }
-        
+
         public WeaponView Create(Transform parent, WeaponTypeId weaponTypeId, out WeaponPresenter weaponPresenter)
         {
             var data = _staticDataService.GetWeaponData(weaponTypeId);
@@ -29,9 +29,12 @@ namespace Something.SomethingArchitecture.Scripts.Architecture.Factory
 
             IShootLogic raycastLogic = null;
 
-            if (data.ShootLogic == WeaponShootLogic.Rifle)
-                raycastLogic = new RaycastShootLogic(data.SpreadMultiplier, data.UseSpread, view.ShootSource);
-            
+            //if (data.ShootLogic == WeaponShootLogic.Rifle)
+            //if (data.ShootLogic == WeaponShootLogic.ShootGun)
+            //if (data.ShootLogic == WeaponShootLogic.Pistol)
+
+            raycastLogic = new RaycastShootLogic(data.SpreadMultiplier, data.UseSpread, view.ShootSource);
+
             var weaponModel = new WeaponModel(data, raycastLogic);
 
             weaponPresenter = new WeaponPresenter(weaponModel, view);

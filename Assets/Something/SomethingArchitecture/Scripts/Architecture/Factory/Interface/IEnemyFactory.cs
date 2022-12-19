@@ -6,9 +6,6 @@ namespace Something.SomethingArchitecture.Scripts.Something.Characters.Enemy
 {
     public interface IEnemyFactory
     {
-        EnemyCharacterView Create(EnemyCharacterID enemyCharacterID, Vector3 spawnPosition,
-            IPlayableCharacter playableCharacter = null);
-
-        EnemyCharacter Create(EnemyCharacterID enemyCharacterID, Vector3 spawnPosition);
+        EnemyCharacterView Create(EnemyCharacterID enemyCharacterID, Vector3 spawnPosition, out EnemyCharacter enemyCharacterModel);
     }
 }

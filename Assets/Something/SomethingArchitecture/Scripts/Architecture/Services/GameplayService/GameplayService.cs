@@ -25,8 +25,8 @@ namespace Something.Scripts.Architecture.GameInfrastucture
         private readonly ICharacterFactory _characterFactory;
         private readonly PlayerUIFactory _playerUIFactory;
         private readonly SaveLoadService _saveLoadService;
-        
-        private PlayerCharacter _playerCharacter;
+
+        private PlayerCharacterModel _playerCharacterModel;
         private MainCamera _mainCamera;
 
         private bool _spawnersIsInitialized;
@@ -42,26 +42,33 @@ namespace Something.Scripts.Architecture.GameInfrastucture
             _sceneReferenceService = ServiceLocator.GetService<SceneReferenceService>();
         }
 
-        public PlayerCharacter GetCurrentCharacter()
+        public void UpdateReferences()
         {
-            if (_playerCharacter != null)
+            ServiceLocator.GetService<SceneReferenceService>().Initialize();
+        }
+
+        public PlayerCharacterModel GetCurrentCharacter()
+        {
+            if (_playerCharacterModel != null)
             {
                 throw new Exception("CurrentCharacter not is instatiated");
             }
-            
-            return _playerCharacter;
+
+            return _playerCharacterModel;
         }
 
-        public Character CreatePlayerCharacter(out PlayerCharacter playerCharacter, Vector3 spawnPosition)
+
+        public PlayerCharacterView CreatePlayerCharacter(out PlayerCharacterModel playerCharacterModel, Vector3 spawnPosition)
         {
             var characterPlayerData = _dataService.GetPlayerData();
-            var characterView = _characterFactory.CreatePlayerCharacter(spawnPosition, characterPlayerData, out var model);
+            var characterView =
+                _characterFactory.CreatePlayerCharacter(spawnPosition, characterPlayerData, out var model);
 
-            playerCharacter = model;
-            _playerCharacter = model;
+            playerCharacterModel = model;
+            _playerCharacterModel = model;
 
             var weaponInventory = new WeaponInventory(_weaponFactory, characterView.WeaponTransform, 2);
-            _playerCharacter.SetWeaponInteract(weaponInventory);
+            _playerCharacterModel.SetWeaponInteract(weaponInventory);
 
             return characterView;
         }
@@ -72,13 +79,18 @@ namespace Something.Scripts.Architecture.GameInfrastucture
 
         public void CreateEnemyWave()
         {
-            if (_playerCharacter == null)
+            if (_playerCharacterModel == null)
                 throw new Exception("Игровой персонаж не создан");
 
             if (_spawnersIsInitialized == false)
             {
-                InitializeEnemySpawners(_playerCharacter);
+                InitializeEnemySpawners(_playerCharacterModel);
                 _spawnersIsInitialized = true;
+            }
+
+            foreach (var spawner in _sceneReferenceService.GetSpawners())
+            {
+                spawner.CreateSquad();
             }
         }
 
@@ -88,16 +100,18 @@ namespace Something.Scripts.Architecture.GameInfrastucture
 
         public void GiveWeapon(WeaponTypeId id)
         {
-            if (_playerCharacter == null)
+            if (_playerCharacterModel == null)
                 throw new Exception("Игровой персонаж не создан");
 
-            var inventory = _playerCharacter.WeaponInventory;
-            inventory.AddWeapon(id);
+            var weaponInventory = _playerCharacterModel.WeaponInventory;
+            weaponInventory.AddWeapon(id);
         }
 
         private void InitializeEnemySpawners(IPlayableCharacter playableCharacter)
         {
             var enemySpawners = _sceneReferenceService.GetSpawners();
+            Debug.Log(enemySpawners);
+
             foreach (var spawner in enemySpawners)
             {
                 spawner.GetComponent<EnemySquadSpawner>().Initialize(_enemyFactory, ref playableCharacter);

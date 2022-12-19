@@ -7,8 +7,9 @@ namespace Something.Scripts.Architecture.GameInfrastucture
 {
     public interface IGameplayService
     {
-        PlayerCharacter GetCurrentCharacter();
-        Character CreatePlayerCharacter(out PlayerCharacter playerCharacter, Vector3 spawnPosition);
+        PlayerCharacterModel GetCurrentCharacter();
+        PlayerCharacterView CreatePlayerCharacter(out PlayerCharacterModel playerCharacterModel, Vector3 spawnPosition);
+        void UpdateReferences();
         void GiveWeapon(WeaponTypeId id);
         void SpawnEnemy();
         void CreateEnemyWave();

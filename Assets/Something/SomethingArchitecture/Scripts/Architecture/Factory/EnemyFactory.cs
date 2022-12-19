@@ -19,7 +19,7 @@ namespace Something.SomethingArchitecture.Scripts.Something.Characters.Enemy
         }
 
         public EnemyCharacterView Create(EnemyCharacterID enemyCharacterID, Vector3 spawnPosition,
-            IPlayableCharacter playableCharacter = null)
+            out EnemyCharacter enemyCharacterModel)
         {
             var enemyData = _dataService.GetEnemy(enemyCharacterID);
             var prefab = Object.Instantiate(enemyData.PreFab, spawnPosition, Quaternion.identity);
@@ -42,39 +42,10 @@ namespace Something.SomethingArchitecture.Scripts.Something.Characters.Enemy
             var mover = new SimpleEnemyMover(navMeshAgent, enemyData.WalkSpeed);
             var simpleAI = new SimpleEnemyAI(mover);
 
-            var model = new EnemyCharacter(unitBody, mover, simpleAI);
-            model.Initialize();
+            enemyCharacterModel = new EnemyCharacter(unitBody, mover, simpleAI);
+            characterView.InitializeModel(enemyCharacterModel);
 
             return characterView;
-        }
-
-        public EnemyCharacter Create(EnemyCharacterID enemyCharacterID, Vector3 spawnPosition)
-        {
-            var enemyData = _dataService.GetEnemy(enemyCharacterID);
-            var prefab = Object.Instantiate(enemyData.PreFab, spawnPosition, Quaternion.identity);
-
-            prefab.TryGetComponent(out EnemyCharacterView characterView);
-            if (characterView == null)
-                throw new Exception("Prefab has no component found EnemyCharacterView!");
-
-            prefab.TryGetComponent(out NavMeshAgent navMeshAgent);
-            if (navMeshAgent == null)
-                throw new Exception("Prefab has no component found NavMeshAgent!");
-
-            prefab.TryGetComponent(out UnitBodyPresenter unitBodyComponent);
-            if (unitBodyComponent == null)
-                throw new Exception("CharacterInstance not contains UnitBodyComponent component");
-
-            var health = new Health(enemyData.HealthPointCount);
-            var unitBody = new UnitBody(health, unitBodyComponent);
-
-            var mover = new SimpleEnemyMover(navMeshAgent, enemyData.WalkSpeed);
-            var simpleAI = new SimpleEnemyAI(mover);
-
-            var model = new EnemyCharacter(unitBody, mover, simpleAI);
-            model.Initialize();
-
-            return model;
         }
     }
 }
