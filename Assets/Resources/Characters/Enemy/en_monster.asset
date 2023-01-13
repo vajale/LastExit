@@ -20,4 +20,4 @@ MonoBehaviour:
   runSpeed: 3
   jumpSpeed: 1
   gravityMultiplier: 2.5
-  preFab: {fileID: 4047174536644290739, guid: 32a83ae2f402a6e4684558237955a1ea, type: 3}
+  preFab: {fileID: 4493914613880827488, guid: 6dc4cf4496348884d8ee27743ae38562, type: 3}

@@ -1,15 +1,18 @@
-﻿using UnityEngine;
+﻿using Something.Scripts.Something.Characters;
+using UnityEngine;
 
 namespace Something.SomethingArchitecture.Scripts.Something.Characters.Base
 {
     [RequireComponent(typeof(CharacterController))]
-    public class PlayerCharacterView : MonoBehaviour
+    public class PlayerCharacterView : MonoBehaviour, IPlayableCharacterView
     {
         [SerializeField] private Transform cameraTransform;
         [SerializeField] private Transform weaponTransform;
         [SerializeField] private float rotationSmooth = 1f;
+        
         private PlayerCharacterModel _characterModelModel;
 
+        public PlayerCharacterModel CharacterModel => _characterModelModel;
         public Transform CameraTransform => cameraTransform;
         public Transform WeaponTransform => weaponTransform;
 
@@ -17,7 +20,7 @@ namespace Something.SomethingArchitecture.Scripts.Something.Characters.Base
         {
             _characterModelModel = model;
         }
-        
+
         private void Update()
         {
             _characterModelModel.InteractUpdate();
@@ -30,8 +33,14 @@ namespace Something.SomethingArchitecture.Scripts.Something.Characters.Base
 
             if (weaponTransform != null)
             {
-                weaponTransform.rotation = cameraTransform.rotation;
+                weaponTransform.rotation = Quaternion.Euler(CameraTransform.rotation.eulerAngles);
             }
         }
+    }
+
+    public interface IPlayableCharacterView
+    {
+        public Transform transform { get; }
+        public PlayerCharacterModel CharacterModel { get; }
     }
 }

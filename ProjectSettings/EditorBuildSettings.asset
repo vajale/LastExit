@@ -4,5 +4,23 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Something/SomethingArchitecture/Scenes/Initial.unity
+    guid: a002d07398eb2c244baa58824940e1f8
+  - enabled: 1
+    path: Assets/Something/SomethingArchitecture/Scenes/Level.unity
+    guid: 80884f22ee5eddb4fb01be961c36ac31
+  - enabled: 1
+    path: Assets/Something/SomethingArchitecture/Scenes/Loading.unity
+    guid: 9a7d9bc881739864e80f9b6a5b4f991a
+  - enabled: 1
+    path: Assets/Something/SomethingArchitecture/Scenes/MainMenuBackground.unity
+    guid: dd20ed2116f48cf4e8e518ead4179e95
+  - enabled: 1
+    path: Assets/Something/SomethingArchitecture/Scenes/MainMenuView.unity
+    guid: 34adaeef75bbf2949b54c0639c0dbec4
+  - enabled: 1
+    path: Assets/Something/SomethingArchitecture/Scenes/TestScene.unity
+    guid: cc56833d4a7898e4197f40e14b1d6d4a
   m_configObjects: {}

@@ -23,4 +23,4 @@ MonoBehaviour:
   muzzleFlashLight: {fileID: 4063260465274573668, guid: 25a6bd588ee932f4f8be552fd0fae250, type: 3}
   shootSound: {fileID: 8300000, guid: 9e9480b4d07646942b555fd43f2a0f71, type: 3}
   reloadSound: {fileID: 8300000, guid: 778c7be53403f9e45804f5a61a13a3e6, type: 3}
-  preFab: {fileID: 8172911305079217959, guid: 034dd63ab5cfdf84887ff5d9218a2e12, type: 3}
+  preFab: {fileID: 2303129982485656813, guid: 05d173b7d3f60f246a8de8b758c3ec0c, type: 3}

@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponTypeId: 10
   fireRate: 0.1
-  spreadMultiplier: 0.1
-  ammoConsumption: 1
-  useSpread: 1
-  lightDuration: 0.1
-  muzzleParticles: {fileID: 4742348811577898604, guid: 2735bebe54c1f5a4096f5134a96f7e77, type: 3}
-  sparkParticles: {fileID: 4742348811577898604, guid: 2735bebe54c1f5a4096f5134a96f7e77, type: 3}
-  muzzleFlashLight: {fileID: 4063260465274573668, guid: 25a6bd588ee932f4f8be552fd0fae250, type: 3}
-  shootSound: {fileID: 8300000, guid: 9e9480b4d07646942b555fd43f2a0f71, type: 3}
-  reloadSound: {fileID: 8300000, guid: 125edb9e36f963249bc792cca38492b1, type: 3}
-  preFab: {fileID: 2923187766730355472, guid: 9d5175195f056114babd3b4efa3b1c82, type: 3}
+  spreadMultiplier: 0
+  ammoConsumption: 0
+  useSpread: 0
+  lightDuration: 0
+  muzzleParticles: {fileID: 0}
+  sparkParticles: {fileID: 0}
+  muzzleFlashLight: {fileID: 0}
+  shootSound: {fileID: 0}
+  reloadSound: {fileID: 0}
+  preFab: {fileID: 2959962666469029797, guid: 81e9dcf7dfc687b4a93f727195af8d86, type: 3}

@@ -20,21 +20,14 @@ namespace Something.SomethingArchitecture.Scripts.Something.Characters.Base
         {
             _transform = weaponTransform;
             _weaponFactory = weaponFactory;
-            _equippedList = new List<WeaponPresenter>(equippedCapacity);
+            _equippedList = new List<WeaponPresenter>();
             _weapons = new Dictionary<WeaponTypeId, WeaponPresenter>();
             _currentWeaponIndex = 0;
         }
 
         public IReadOnlyList<WeaponPresenter> Equipped => _equippedList;
 
-        public WeaponPresenter CurrentWeapon
-        {
-            get
-            {
-                if (_equippedList != null) return _equippedList[_currentWeaponIndex];
-                return null;
-            }
-        }
+        public WeaponPresenter CurrentWeapon => _equippedList[_currentWeaponIndex];
 
         public event Action Switched;
         public event Action Added;

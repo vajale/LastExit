@@ -63,6 +63,8 @@ namespace Something.Scripts.Architecture.GameInfrastucture
             _gameplayService.CreateEnemyWave();
             
             _gameplayService.GiveWeapon(WeaponTypeId.Rifle);
+            _gameplayService.GiveWeapon(WeaponTypeId.Pistol);
+            _gameplayService.GiveWeapon(WeaponTypeId.ShootGun);
 
             Cursor.lockState = CursorLockMode.Locked;
         }

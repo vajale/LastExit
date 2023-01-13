@@ -15,13 +15,17 @@ namespace Something.Scripts.Something.AI
 
         public void Execute()
         {
-            _enemyMover.StopMoving();
-            _enemyAttacker.Attack();
+            
+        }
+
+        public void Update()
+        {
+            throw new System.NotImplementedException();
         }
 
         public void Undo()
         {
-            _enemyAttacker.StopAttack();
+            
         }
         
         

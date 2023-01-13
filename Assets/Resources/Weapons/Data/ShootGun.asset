@@ -20,6 +20,7 @@ MonoBehaviour:
   lightDuration: 0
   muzzleParticles: {fileID: 0}
   sparkParticles: {fileID: 0}
-  shootSound: {fileID: 8300000, guid: 0addcc409a57b4a43b86a3d2310ac5b4, type: 3}
   muzzleFlashLight: {fileID: 0}
-  preFab: {fileID: 3406539598376722197, guid: 24c49f5b6c9e68b42bcdac1c72713fb9, type: 3}
+  shootSound: {fileID: 8300000, guid: 0addcc409a57b4a43b86a3d2310ac5b4, type: 3}
+  reloadSound: {fileID: 0}
+  preFab: {fileID: 2303129982485656813, guid: 05d173b7d3f60f246a8de8b758c3ec0c, type: 3}
