@@ -3,6 +3,7 @@ using Something.Scripts.Something.Characters;
 using Something.Scripts.Something.Characters.MoveControllers;
 using Something.Scripts.Something.Weapon.AmmoTypes;
 using Something.Scripts.Something.Weapon.Base;
+using Something.SomethingArchitecture.Scripts.Architecture.GameInfrastucture.States;
 using Something.SomethingArchitecture.Scripts.Something.Characters.Base.Base;
 using Something.SomethingArchitecture.Scripts.Something.Weapon.Factory;
 using UnityEngine;
@@ -16,7 +17,6 @@ namespace Something.SomethingArchitecture.Scripts.Something.Characters.Base
         //public IInventory Inventory { get; set; }
         public IWeaponInteract WeaponInventory { get; private set; }
         public IPlayerMoveController MoveController { get; set; }
-        public IWeaponModel CurrentWeapon => WeaponInventory.CurrentWeapon.WeaponModel;
 
         public Health Health { get; }
 
@@ -34,7 +34,7 @@ namespace Something.SomethingArchitecture.Scripts.Something.Characters.Base
 
         #region InteractShit
 
-        public void InteractUpdate()
+        public void ControlInteractUpdate()
         {
             if (_inputContext == null)
                 return;
@@ -42,6 +42,22 @@ namespace Something.SomethingArchitecture.Scripts.Something.Characters.Base
             MoveController.Move(ref _inputContext);
 
             WeaponInteractUpdate();
+            PlayerInteract();
+        }
+
+        private void PlayerInteract()
+        {
+            if (_inputContext.Interact)
+            {
+                var transform = MoveController.Transform;
+                if (Physics.Raycast(transform.position, transform.forward, out var hit))
+                {
+                    if (hit.collider.TryGetComponent<ITouchable>(out var touchable))
+                    {
+                        touchable.Touch();
+                    }
+                }
+            }
         }
 
         private void WeaponInteractUpdate()
@@ -53,7 +69,6 @@ namespace Something.SomethingArchitecture.Scripts.Something.Characters.Base
 
             if (_inputContext.WeaponInteractInvoke2)
             {
-                Debug.Log(WeaponInventory.CurrentWeapon.Type);
             }
 
             if (_inputContext.WeaponInteractInvoke)

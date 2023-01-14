@@ -7,6 +7,7 @@ namespace Something.Scripts.Something
     {
         Vector2 Axis { get; }
         
+        bool Interact { get; }
         bool WeaponInteractInvoke { get; }
         bool WeaponInteractInvoke2 { get; }
         bool WeaponReloadInteract { get; }

@@ -23,7 +23,7 @@ namespace Something.SomethingArchitecture.Scripts.Something.Characters.Base
 
         private void Update()
         {
-            _characterModelModel.InteractUpdate();
+            _characterModelModel.ControlInteractUpdate();
 
             if (cameraTransform != null)
             {

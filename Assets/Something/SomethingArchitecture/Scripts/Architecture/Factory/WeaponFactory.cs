@@ -1,4 +1,5 @@
 ﻿using System;
+using Something.Scripts.Something.Weapon.AmmoTypes;
 using Something.Scripts.Something.Weapon.Base;
 using Something.SomethingArchitecture.Scripts.Architecture.Factory.Interface;
 using Something.SomethingArchitecture.Scripts.Something.Weapon.Factory;
@@ -29,14 +30,19 @@ namespace Something.SomethingArchitecture.Scripts.Architecture.Factory
 
             IShootLogic raycastLogic = null;
 
-            //if (data.ShootLogic == WeaponShootLogic.Rifle)
-            //if (data.ShootLogic == WeaponShootLogic.ShootGun)
-            //if (data.ShootLogic == WeaponShootLogic.Pistol)
+            WeaponMagazine weaponMagazine = null;
+
+            if (weaponTypeId == WeaponTypeId.Rifle)
+                weaponMagazine = new WeaponMagazine(30, new RifleAmmo());
+            
+            if (weaponTypeId == WeaponTypeId.Pistol)
+                weaponMagazine = new WeaponMagazine(7, new UspAmmo());
 
             raycastLogic = new RaycastShootLogic(data.SpreadMultiplier, data.UseSpread, view.ShootSource);
 
-            var weaponModel = new WeaponModel(data, raycastLogic);
+            var weaponModel = new WeaponModel(data, raycastLogic, weaponMagazine);
 
+            
             weaponPresenter = new WeaponPresenter(weaponModel, view);
 
             view.SetVizualSettings(data);

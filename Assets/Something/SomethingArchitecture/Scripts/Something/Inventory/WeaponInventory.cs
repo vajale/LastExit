@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Something.Scripts.Something;
 using Something.Scripts.Something.Weapon.Base;
 using Something.SomethingArchitecture.Scripts.Architecture.Factory.Interface;
 using Something.SomethingArchitecture.Scripts.Something.Weapon.Factory;
