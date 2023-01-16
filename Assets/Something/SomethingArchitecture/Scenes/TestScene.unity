@@ -166,7 +166,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &153964742
 GameObject:
@@ -394,12 +394,12 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.01
-  far clip plane: 1000
+  near clip plane: 0.1
+  far clip plane: 1000.02
   field of view: 60
   orthographic: 0
   orthographic size: 5
-  m_Depth: 0
+  m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -421,13 +421,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1192789366}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.03476739, y: 1.3245298, z: 7.8135686}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1403030025
 PrefabInstance:
@@ -483,6 +483,18 @@ PrefabInstance:
     - target: {fileID: 9173622949975669941, guid: ec5e96769d7ba4e488a812e7f9beb2e9, type: 3}
       propertyPath: m_Name
       value: EnemySpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 9173622949984567702, guid: ec5e96769d7ba4e488a812e7f9beb2e9, type: 3}
+      propertyPath: _id
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 9173622951186319335, guid: ec5e96769d7ba4e488a812e7f9beb2e9, type: 3}
+      propertyPath: _id
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 9173622951690483398, guid: ec5e96769d7ba4e488a812e7f9beb2e9, type: 3}
+      propertyPath: _id
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec5e96769d7ba4e488a812e7f9beb2e9, type: 3}

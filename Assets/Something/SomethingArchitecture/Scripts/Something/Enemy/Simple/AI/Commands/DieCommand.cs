@@ -9,6 +9,11 @@ namespace Something.Scripts.Something.EnemyWave
             
         }
 
+        public void Update()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void Undo()
         {
             

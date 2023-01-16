@@ -1,27 +1,33 @@
 ﻿using Something.Scripts.Something.Characters;
+using Something.SomethingArchitecture.Scripts.Something.Characters.Enemy;
 using UnityEngine;
 
 namespace Something.Scripts.Something.AI
 {
     public class ChaseCommand : ICommand
     {
-        private readonly Vector3 _target;
-        private readonly IEnemyMover _enemyMover;
+        private readonly EnemyCharacter _character;
+        public IPlayableCharacter Target;
 
-        public ChaseCommand(ref IPlayableCharacter target, IEnemyMover enemyMover)
+        public ChaseCommand(IPlayableCharacter target, EnemyCharacter character)
         {
-            _target = target.MoveController.Transform.position;
-            _enemyMover = enemyMover;
+            _character = character;
+            Target = target;
         }
 
         public void Execute()
         {
-            _enemyMover.Move(_target);
+            _character.Mover.Move(Target.MoveController.Transform.position);
+            _character.Animator.Run();
+        }
+
+        public void Update()
+        {
+            
         }
 
         public void Undo()
-        { 
-            _enemyMover.StopMoving();
+        {
         }
     }
 }

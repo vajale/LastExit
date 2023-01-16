@@ -17,7 +17,7 @@ namespace Something.Scripts.Something.Spawners
         public int InstanceId => GetInstanceID();
         public bool IsEliminated => _isEliminated;
 
-        public void Initialize(IEnemyFactory enemyFactory, ref IPlayableCharacter playableCharacter)
+        public void Initialize(IEnemyFactory enemyFactory, IPlayableCharacter playableCharacter = null)
         {
             _target = playableCharacter;
             _enemyFactory = enemyFactory;
@@ -34,7 +34,7 @@ namespace Something.Scripts.Something.Spawners
                 enemyArray[i] = model;
             }
 
-            var newSquad = new EnemySquad(enemyArray, _target);
+            var newSquad = new EnemySquad(enemyArray, ref _target);
             newSquad.Initialize();
             return newSquad;
         }

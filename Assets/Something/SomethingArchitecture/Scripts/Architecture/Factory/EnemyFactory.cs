@@ -35,6 +35,10 @@ namespace Something.SomethingArchitecture.Scripts.Something.Characters.Enemy
             prefab.TryGetComponent(out UnitBodyPresenter unitBodyComponent);
             if (unitBodyComponent == null)
                 throw new Exception("CharacterInstance not contains UnitBodyComponent component");
+            
+            prefab.TryGetComponent(out EnemyAnimator animator);
+            if (unitBodyComponent == null)
+                throw new Exception("CharacterInstance not contains UnitBodyComponent component");
 
             var health = new Health(enemyData.HealthPointCount);
             var unitBody = new UnitBody(health, unitBodyComponent);
@@ -42,7 +46,7 @@ namespace Something.SomethingArchitecture.Scripts.Something.Characters.Enemy
             var mover = new SimpleEnemyMover(navMeshAgent, enemyData.WalkSpeed);
             var simpleAI = new SimpleEnemyAI(mover);
 
-            enemyCharacterModel = new EnemyCharacter(unitBody, mover, simpleAI);
+            enemyCharacterModel = new EnemyCharacter(unitBody, mover, simpleAI, animator);
             characterView.InitializeModel(enemyCharacterModel);
 
             return characterView;

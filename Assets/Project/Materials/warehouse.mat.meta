@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: 02d0350f0bf0f404cb8786f786134448
+labels:
+- iOS
+- Android
+- warehouse
+- industrial
+- building
+- lowpoly
+- colliders
+- prefab
+- rts
+- strategy
+- mobile
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

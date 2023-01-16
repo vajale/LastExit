@@ -84,7 +84,7 @@ namespace Something.Scripts.Architecture.GameInfrastucture
 
             if (_spawnersIsInitialized == false)
             {
-                InitializeEnemySpawners(_playerCharacterModel);
+                InitializeEnemySpawners();
                 _spawnersIsInitialized = true;
             }
 
@@ -107,14 +107,13 @@ namespace Something.Scripts.Architecture.GameInfrastucture
             weaponInventory.AddWeapon(id);
         }
 
-        private void InitializeEnemySpawners(IPlayableCharacter playableCharacter)
+        private void InitializeEnemySpawners(IPlayableCharacter playableCharacter = null)
         {
             var enemySpawners = _sceneReferenceService.GetSpawners();
-            Debug.Log(enemySpawners);
 
             foreach (var spawner in enemySpawners)
             {
-                spawner.GetComponent<EnemySquadSpawner>().Initialize(_enemyFactory, ref playableCharacter);
+                spawner.GetComponent<EnemySquadSpawner>().Initialize(_enemyFactory);
             }
         }
     }

@@ -5,9 +5,12 @@ namespace Something.Scripts.Something.AI
 {
     public class SimpleEnemyMover : IEnemyMover
     {
+        public Transform transform => _transformComponent;
+        
         private Transform _transformComponent;
         private NavMeshAgent _navMeshAgent;
         private float _speed;
+
 
         public SimpleEnemyMover(NavMeshAgent navMeshAgent, float speed)
         {

@@ -9,7 +9,7 @@ namespace Something.Scripts.Something.EnemyWave
         private readonly EnemyCharacter[] _units;
         private IPlayableCharacter _target;
 
-        public EnemySquad(EnemyCharacter[] unitArray, IPlayableCharacter target)
+        public EnemySquad(EnemyCharacter[] unitArray,ref  IPlayableCharacter target)
         {
             _target = target;
             _units = unitArray;
@@ -19,8 +19,7 @@ namespace Something.Scripts.Something.EnemyWave
         {
             foreach (var unit in _units)
             {
-                unit.SetTarget(ref _target);
-                unit.SetCommand(new SearchTargetCommand(unit.Mover));
+                unit.SetCommand(new SearchTargetCommand(unit));
             }
         }
     }

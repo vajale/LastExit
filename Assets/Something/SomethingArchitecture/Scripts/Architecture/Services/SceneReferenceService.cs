@@ -108,8 +108,6 @@ namespace Something.Scripts.Architecture.GameInfrastucture
         private void InitializeSpawners()
         {
             var spawners = SceneReferenceFinderExtensions.FindByTags(Tags.EnemySpawner);
-            Debug.Log(spawners[0].gameObject.name);
-
             _enemySpawners = new List<EnemySquadSpawner>();
 
             foreach (var spawner in spawners)
