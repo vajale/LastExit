@@ -1,8 +1,8 @@
-﻿using System;
-using Something.Scripts.Architecture.Services.ServiceLocator;
+﻿using Something.Scripts.Architecture.Services.ServiceLocator;
 using Something.Scripts.Architecture.Utilities;
 using Something.Scripts.Something.Characters;
 using Something.Scripts.Something.Spawners;
+using Something.SomethingArchitecture.Scripts.Architecture;
 using Something.SomethingArchitecture.Scripts.Architecture.Factory;
 using Something.SomethingArchitecture.Scripts.Architecture.Factory.Interface;
 using Something.SomethingArchitecture.Scripts.Something.Camera;
@@ -15,7 +15,13 @@ using UnityEngine;
 
 namespace Something.Scripts.Architecture.GameInfrastucture
 {
-    public class GameplayService : IGameplayService, IService
+    public interface IGamePlayServiceHelper
+    {
+        public void SpawnEnemy(EnemySquadSpawner squadSpawner);
+        public void GiveWeapon(WeaponTypeId id, IPlayableCharacter character);
+    }
+    
+    public class GameplayService : IService, IGamePlayServiceHelper
     {
         private readonly StaticDataService _dataService;
         private readonly SceneReferenceService _sceneReferenceService;
@@ -47,18 +53,8 @@ namespace Something.Scripts.Architecture.GameInfrastucture
             ServiceLocator.GetService<SceneReferenceService>().Initialize();
         }
 
-        public PlayerCharacterModel GetCurrentCharacter()
-        {
-            if (_playerCharacterModel != null)
-            {
-                throw new Exception("CurrentCharacter not is instatiated");
-            }
-
-            return _playerCharacterModel;
-        }
-
-
-        public PlayerCharacterView CreatePlayerCharacter(out PlayerCharacterModel playerCharacterModel, Vector3 spawnPosition)
+        public PlayerCharacterView CreatePlayerCharacter(out PlayerCharacterModel playerCharacterModel,
+            Vector3 spawnPosition)
         {
             var characterPlayerData = _dataService.GetPlayerData();
             var characterView =
@@ -67,21 +63,20 @@ namespace Something.Scripts.Architecture.GameInfrastucture
             playerCharacterModel = model;
             _playerCharacterModel = model;
 
-            var weaponInventory = new WeaponInventory(_weaponFactory, characterView.WeaponTransform, 2);
+            var weaponInventory = new WeaponInventory(_weaponFactory, characterView.WeaponTransform, 4);
             _playerCharacterModel.SetWeaponInteract(weaponInventory);
 
             return characterView;
         }
 
-        public void SpawnEnemy()
+        public void SpawnEnemy(EnemySquadSpawner squadSpawner)
         {
+            squadSpawner.Initialize(_enemyFactory);
+            squadSpawner.CreateSquad();
         }
 
-        public void CreateEnemyWave()
+        public void SpawnAllEnemy()
         {
-            if (_playerCharacterModel == null)
-                throw new Exception("Игровой персонаж не создан");
-
             if (_spawnersIsInitialized == false)
             {
                 InitializeEnemySpawners();
@@ -94,16 +89,9 @@ namespace Something.Scripts.Architecture.GameInfrastucture
             }
         }
 
-        public void CreateEnemyWaveByDestination()
+        public void GiveWeapon(WeaponTypeId id, IPlayableCharacter character)
         {
-        }
-
-        public void GiveWeapon(WeaponTypeId id)
-        {
-            if (_playerCharacterModel == null)
-                throw new Exception("Игровой персонаж не создан");
-
-            var weaponInventory = _playerCharacterModel.WeaponInventory;
+            var weaponInventory = character.WeaponInventory;
             weaponInventory.AddWeapon(id);
         }
 
@@ -117,4 +105,5 @@ namespace Something.Scripts.Architecture.GameInfrastucture
             }
         }
     }
+    
 }

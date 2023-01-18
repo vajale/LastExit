@@ -15,7 +15,7 @@ MonoBehaviour:
   weaponTypeId: 10
   fireRate: 0.1
   spreadMultiplier: 0
-  ammoConsumption: 0
+  ammoConsumption: 1
   useSpread: 0
   lightDuration: 0
   muzzleParticles: {fileID: 0}
@@ -23,4 +23,4 @@ MonoBehaviour:
   muzzleFlashLight: {fileID: 0}
   shootSound: {fileID: 0}
   reloadSound: {fileID: 0}
-  preFab: {fileID: 2959962666469029797, guid: 81e9dcf7dfc687b4a93f727195af8d86, type: 3}
+  preFab: {fileID: 2923187766730355472, guid: 9d5175195f056114babd3b4efa3b1c82, type: 3}

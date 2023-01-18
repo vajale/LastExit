@@ -56,7 +56,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2923187766730355472}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.062, y: 0.46, z: 0.36}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -76,6 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f22f5a9a7028cb4187a4d393c831f74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isViewInit: 0
   _weaponAnimator: {fileID: 8722537692024011093}
   _shootSource: {fileID: 541890627475819520}
   _shootAudioSource: {fileID: 8722537692024011098}

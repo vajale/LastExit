@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Something.Scripts.Architecture;
 using Something.Scripts.Architecture.GameInfrastucture;
 using Something.Scripts.Architecture.GameInfrastucture.States.GameLoopStates;
 using Something.Scripts.Architecture.GameInfrastucture.States.Interfaces;
@@ -7,10 +8,11 @@ using Something.Scripts.Architecture.Services;
 using Something.Scripts.Architecture.Services.ServiceLocator;
 using Something.Scripts.Architecture.Utilities;
 using Something.Scripts.Something;
-using Something.Scripts.Something.Characters.MoveControllers.States;
 using Something.SomethingArchitecture.Scripts.Architecture.Utilities.StateMachine;
 using Something.SomethingArchitecture.Scripts.Something.Weapon.Factory;
+using Unity.VisualScripting;
 using UnityEngine;
+using IState = Something.Scripts.Something.Characters.MoveControllers.States.IState;
 
 namespace Something.SomethingArchitecture.Scripts.Architecture.GameInfrastucture.States
 {
@@ -25,6 +27,8 @@ namespace Something.SomethingArchitecture.Scripts.Architecture.GameInfrastucture
         private SceneReferenceService _sceneReference;
         private Player _playerSession;
         private SaveLoadService _saveLoadService;
+
+        private GameSceneryLoop _gameScenery;
 
         public GameLoopState(StateMachine<IState> gameStateMachine, SceneLoader sceneLoader)
         {
@@ -54,6 +58,7 @@ namespace Something.SomethingArchitecture.Scripts.Architecture.GameInfrastucture
             var spawmPos = _sceneReference.GetPlayerSpawnPosition();
             var character = _gameplay.CreatePlayerCharacter(out var playerCharacter, spawmPos);
             var mainCamera = _sceneReference.GetMainCamera();
+            
 
             _playerSession.SetCharacter(playerCharacter);
             _playerSession.SetInputContext(InputContextType.PlayerCharacter);
@@ -61,10 +66,11 @@ namespace Something.SomethingArchitecture.Scripts.Architecture.GameInfrastucture
             mainCamera.Initalize(character);
             mainCamera.StateMachine.SetState<CameraPlayerState>();
 
-            _gameplay.GiveWeapon(WeaponTypeId.Pistol);
-            _gameplay.GiveWeapon(WeaponTypeId.Rifle);
+            _gameplay.GiveWeapon(WeaponTypeId.Pistol, playerCharacter);
+            _gameplay.GiveWeapon(WeaponTypeId.Rifle, playerCharacter);
 
             var playerProgress = new PlayerProgress();
+
             _saveLoadService.SetProgress(ref playerProgress);
             _saveLoadService.LoadProgress();
         }
