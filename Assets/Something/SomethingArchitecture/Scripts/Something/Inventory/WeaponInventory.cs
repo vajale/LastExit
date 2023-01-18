@@ -26,7 +26,14 @@ namespace Something.SomethingArchitecture.Scripts.Something.Characters.Base
 
         public IReadOnlyList<WeaponPresenter> Equipped => _equippedList;
 
-        public WeaponPresenter CurrentWeapon => _equippedList[_currentWeaponIndex];
+        public WeaponPresenter CurrentWeapon
+        {
+            get
+            {
+                if (_equippedList != null) return _equippedList[_currentWeaponIndex];
+                return null;
+            }
+        }
 
         public event Action Switched;
         public event Action Added;
@@ -40,7 +47,7 @@ namespace Something.SomethingArchitecture.Scripts.Something.Characters.Base
                 nextIndex = 0;
             }
 
-            _currentWeaponIndex = (int) nextIndex;
+            _currentWeaponIndex = (int)nextIndex;
             if (_equippedList != null & _currentWeaponIndex < _equippedList.Count)
             {
                 SetInteractWeapon(_currentWeaponIndex);

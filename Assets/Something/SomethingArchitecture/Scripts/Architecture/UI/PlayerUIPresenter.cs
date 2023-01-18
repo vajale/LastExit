@@ -64,8 +64,6 @@ public class PlayerUIPresenter
 
     private void OnAmmoChanged(float ammoValue)
     {
-        Debug.Log("ammo changed");
-
         var currentWeapon = _model.CurrentPlayableCharacter.WeaponInventory.CurrentWeapon.WeaponModel;
         if (currentWeapon.CurrentWeaponMagazine == null)
         {

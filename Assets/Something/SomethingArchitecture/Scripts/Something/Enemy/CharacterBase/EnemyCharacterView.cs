@@ -24,7 +24,8 @@ namespace Something.SomethingArchitecture.Scripts.Something.Characters.Enemy
 
         private void Update()
         {
-            _enemyCharacter.Update();
+            if (_enemyCharacter != null)
+                _enemyCharacter.Update();
         }
 
         public void InitializeModel(EnemyCharacter model)

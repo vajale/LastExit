@@ -15,7 +15,13 @@ using UnityEngine;
 
 namespace Something.Scripts.Architecture.GameInfrastucture
 {
-    public class GameplayService : IService
+    public interface IGamePlayServiceHelper
+    {
+        public void SpawnEnemy(EnemySquadSpawner squadSpawner);
+        public void GiveWeapon(WeaponTypeId id, IPlayableCharacter character);
+    }
+    
+    public class GameplayService : IService, IGamePlayServiceHelper
     {
         private readonly StaticDataService _dataService;
         private readonly SceneReferenceService _sceneReferenceService;
@@ -63,11 +69,13 @@ namespace Something.Scripts.Architecture.GameInfrastucture
             return characterView;
         }
 
-        public void SpawnEnemy()
+        public void SpawnEnemy(EnemySquadSpawner squadSpawner)
         {
+            squadSpawner.Initialize(_enemyFactory);
+            squadSpawner.CreateSquad();
         }
 
-        public void CreateEnemyWave()
+        public void SpawnAllEnemy()
         {
             if (_spawnersIsInitialized == false)
             {
@@ -79,10 +87,6 @@ namespace Something.Scripts.Architecture.GameInfrastucture
             {
                 spawner.CreateSquad();
             }
-        }
-
-        public void CreateEnemyWaveByDestination()
-        {
         }
 
         public void GiveWeapon(WeaponTypeId id, IPlayableCharacter character)
@@ -101,4 +105,5 @@ namespace Something.Scripts.Architecture.GameInfrastucture
             }
         }
     }
+    
 }

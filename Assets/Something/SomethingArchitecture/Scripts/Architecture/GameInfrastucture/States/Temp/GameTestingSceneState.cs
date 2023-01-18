@@ -7,6 +7,7 @@ using Something.Scripts.Something.Characters.MoveControllers.States;
 using Something.SomethingArchitecture.Scripts.Architecture;
 using Something.SomethingArchitecture.Scripts.Architecture.Factory.Interface;
 using Something.SomethingArchitecture.Scripts.Architecture.GameInfrastucture.States;
+using Something.SomethingArchitecture.Scripts.Something;
 using Something.SomethingArchitecture.Scripts.Something.Characters.Base;
 using Something.SomethingArchitecture.Scripts.Something.Weapon.Factory;
 using SomethingArchitecture.Scripts.Architecture.Services;
@@ -52,7 +53,7 @@ namespace Something.Scripts.Architecture.GameInfrastucture
         {
             _sceneReferenceService.Initialize();
             _gameplayService.UpdateReferences();
-            _gameScenery = new GameSceneryLoop();
+            _gameScenery = new GameSceneryLoop(_gameplayService);
             
             var inputService = ServiceLocator.GetService<PlayerInputService>();
             var playerSession = new Player(inputService);
@@ -64,7 +65,7 @@ namespace Something.Scripts.Architecture.GameInfrastucture
 
             InitializeCamera(character);
 
-            _gameplayService.CreateEnemyWave();
+            _gameplayService.SpawnAllEnemy();
             
             _gameplayService.GiveWeapon(WeaponTypeId.Rifle, playerCharacter);
             _gameplayService.GiveWeapon(WeaponTypeId.Pistol, playerCharacter);
@@ -75,26 +76,38 @@ namespace Something.Scripts.Architecture.GameInfrastucture
 
             CreatePlayerGUI(ref playerSession);
             
-            var list = InitializesGameScenery(out var count);
-            _gameScenery.Initialize(list);
+            var list = InitializesGameScenery();
+            var loopScripts = InitializesGameLoopScripts();
             
-            Debug.Log(count);
-
+            _gameScenery.Initialize(list, loopScripts);
+            
             Cursor.lockState = CursorLockMode.Locked;
         }
 
-        private static List<Lever> InitializesGameScenery(out int count)
+        private List<GameLoopScript> InitializesGameLoopScripts()
+        {
+            var levers = GameObject.FindGameObjectsWithTag(Tags.Trigger);
+
+            var list = new List<GameLoopScript>();
+
+            foreach (var gameObject in levers)
+            {
+                list.Add(gameObject.GetComponent<GameLoopScript>());
+            }
+
+            return list;
+        }
+
+        private static List<Lever> InitializesGameScenery()
         {
             //var levers = _sceneReferenceService.Find<Lever>(Tags.Lever);
             var levers = GameObject.FindGameObjectsWithTag(Tags.Lever);
 
             var list = new List<Lever>();
 
-            count = 0;
             foreach (var gameObject in levers)
             {
                 list.Add(gameObject.GetComponent<Lever>());
-                count++;
             }
 
             return list;
