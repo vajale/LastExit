@@ -23,7 +23,8 @@ namespace Something.SomethingArchitecture.Scripts.Something.Characters.Base
 
         private void Update()
         {
-            _characterModelModel.InteractUpdate();
+            
+            _characterModelModel?.ControlInteractUpdate();
 
             if (cameraTransform != null)
             {
@@ -36,11 +37,5 @@ namespace Something.SomethingArchitecture.Scripts.Something.Characters.Base
                 weaponTransform.rotation = Quaternion.Euler(CameraTransform.rotation.eulerAngles);
             }
         }
-    }
-
-    public interface IPlayableCharacterView
-    {
-        public Transform transform { get; }
-        public PlayerCharacterModel CharacterModel { get; }
     }
 }

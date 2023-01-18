@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Something.Scripts.Architecture.Services.ServiceLocator;
 using Something.Scripts.Architecture.Utilities;
 using Something.Scripts.Something.Spawners;
+using Something.SomethingArchitecture.Scripts.Architecture.GameInfrastucture.States;
 using Something.SomethingArchitecture.Scripts.Something.Camera;
 using UnityEngine;
 using UnityEngine.AI;
@@ -98,7 +99,7 @@ namespace Something.Scripts.Architecture.GameInfrastucture
                 if (component == null)
                     throw new Exception(component + " component is  not contains on " + taggedGameObject.name);
 
-                
+
                 return component;
             }
 
@@ -114,6 +115,18 @@ namespace Something.Scripts.Architecture.GameInfrastucture
             {
                 _enemySpawners.Add(spawner.GetComponent<EnemySquadSpawner>());
             }
+        }
+
+        public List<T> Find<T>(string tag) where T : MonoBehaviour
+        {
+            var levers = SceneReferenceFinderExtensions.FindByTags(tag);
+
+            List<T> list = new List<T>();
+
+            foreach (var lever in levers)
+                list.Add(lever.GetComponent<T>());
+
+            return list;
         }
     }
 }

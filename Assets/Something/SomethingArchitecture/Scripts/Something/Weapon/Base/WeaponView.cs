@@ -10,6 +10,8 @@ namespace Something.Scripts.Something.Weapon.Base
 {
     public class WeaponView : MonoBehaviour, IWeaponView
     {
+        [Header("VIEW INIT")] [SerializeField] private bool _isViewInit;
+        
         [SerializeField] private WeaponAnimator _weaponAnimator;
         [SerializeField] private Transform _shootSource;
         [SerializeField] private AudioSource _shootAudioSource;
@@ -50,6 +52,8 @@ namespace Something.Scripts.Something.Weapon.Base
 
         private void PlayShootImpact(float value)
         {
+            if(_isViewInit == false) return;
+            
             _shootAudioSource.clip = _shootSound;
             _shootAudioSource.Play();
             _muzzleParticles.Emit(1);
@@ -59,6 +63,8 @@ namespace Something.Scripts.Something.Weapon.Base
 
         private IEnumerator MuzzleFlashLight()
         {
+            if(_isViewInit == false) yield break;
+
             _muzzleflashLight.enabled = true;
             yield return new WaitForSeconds(_lightDuration);
             _muzzleflashLight.enabled = false;

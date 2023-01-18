@@ -7,18 +7,25 @@ namespace Something.Scripts.Something.AI
     public class ChaseCommand : ICommand
     {
         private readonly EnemyCharacter _character;
-        public IPlayableCharacter Target;
+        private readonly IPlayableCharacter _target;
 
         public ChaseCommand(IPlayableCharacter target, EnemyCharacter character)
         {
             _character = character;
-            Target = target;
+            _target = target;
         }
 
         public void Execute()
         {
-            _character.Mover.Move(Target.MoveController.Transform.position);
+            _character.Mover.Move(_target.MoveController.Transform.position);
             _character.Animator.Run();
+
+            var distance = (_target.MoveController.Transform.position - _character.Mover.transform.position).magnitude;
+            
+            if (distance < 2f)
+            {
+                _character.SetCommand(new AttackCommand(_character, _target));
+            }
         }
 
         public void Update()

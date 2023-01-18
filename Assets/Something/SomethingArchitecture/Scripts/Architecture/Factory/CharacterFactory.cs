@@ -37,10 +37,12 @@ namespace SomethingArchitecture.Scripts.Architecture.Factory
             var health = new Health(data.HealthPointCount);
             var unitBody = new UnitBody(health, unitBodyComponent);
             var moveController = new StandartMoveController(data, characterControllerComponent);
-            var character = new PlayerCharacterModel(unitBody, moveController,new Inventory(30));
+            var character = new PlayerCharacterModel(unitBody, moveController);
 
             playerCharacterModel = character;
             characterView.InitializeModel(playerCharacterModel);
+            character.SetCamera(characterView.CameraTransform);
+            
             _isPlayerCharacterInstantiated = true;
 
             return characterView;

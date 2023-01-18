@@ -7,6 +7,14 @@ namespace Something.Scripts.Something.Weapon.Base
     {
         private readonly IShootLogic _shootLogic;
 
+        public WeaponModel(WeaponData weaponData, IShootLogic shootLogic, WeaponMagazine weaponMagazine)
+        {
+            WeaponData = weaponData;
+            _shootLogic = shootLogic;
+
+            CurrentWeaponMagazine = weaponMagazine;
+        }
+        
         public WeaponModel(WeaponData weaponData, IShootLogic shootLogic)
         {
             WeaponData = weaponData;
@@ -22,7 +30,7 @@ namespace Something.Scripts.Something.Weapon.Base
         public float BulletDamage => CurrentWeaponMagazine.AmmoType.Damage;
         public int Ammo => CurrentWeaponMagazine.Ammo;
 
-
+        
         public bool PerformShoot()
         {
             if (TrySpendAmmo(WeaponData.AmmoConsumption))

@@ -1,10 +1,13 @@
-﻿using Something.Scripts.Architecture.Services;
+﻿using System.Collections.Generic;
+using Something.Scripts.Architecture.Services;
 using Something.Scripts.Architecture.Services.ServiceLocator;
 using Something.Scripts.Architecture.Utilities;
 using Something.Scripts.Something;
 using Something.Scripts.Something.Characters.MoveControllers.States;
 using Something.SomethingArchitecture.Scripts.Architecture;
 using Something.SomethingArchitecture.Scripts.Architecture.Factory.Interface;
+using Something.SomethingArchitecture.Scripts.Architecture.GameInfrastucture.States;
+using Something.SomethingArchitecture.Scripts.Something;
 using Something.SomethingArchitecture.Scripts.Something.Characters.Base;
 using Something.SomethingArchitecture.Scripts.Something.Weapon.Factory;
 using SomethingArchitecture.Scripts.Architecture.Services;
@@ -17,10 +20,11 @@ namespace Something.Scripts.Architecture.GameInfrastucture
     {
         private readonly SceneLoader _sceneLoader;
 
-        private IGameplayService _gameplayService;
+        private GameplayService _gameplayService;
         private StaticDataService _dataService;
         private PlayerUIFactory _playerUIFactory;
         private SceneReferenceService _sceneReferenceService;
+        private GameSceneryLoop _gameScenery;
 
         public GameTestingSceneState(SceneLoader sceneLoader)
         {
@@ -49,6 +53,7 @@ namespace Something.Scripts.Architecture.GameInfrastucture
         {
             _sceneReferenceService.Initialize();
             _gameplayService.UpdateReferences();
+            _gameScenery = new GameSceneryLoop(_gameplayService);
             
             var inputService = ServiceLocator.GetService<PlayerInputService>();
             var playerSession = new Player(inputService);
@@ -60,13 +65,52 @@ namespace Something.Scripts.Architecture.GameInfrastucture
 
             InitializeCamera(character);
 
-            _gameplayService.CreateEnemyWave();
+            _gameplayService.SpawnAllEnemy();
             
-            _gameplayService.GiveWeapon(WeaponTypeId.Rifle);
-            _gameplayService.GiveWeapon(WeaponTypeId.Pistol);
-            _gameplayService.GiveWeapon(WeaponTypeId.ShootGun);
+            _gameplayService.GiveWeapon(WeaponTypeId.Rifle, playerCharacter);
+            _gameplayService.GiveWeapon(WeaponTypeId.Pistol, playerCharacter);
+            
+            playerSession.CurrentPlayableCharacter.WeaponInventory.SwitchWeapon(1);
+            playerSession.CurrentPlayableCharacter.WeaponInventory.SwitchWeapon(1);
+            playerSession.CurrentPlayableCharacter.WeaponInventory.SwitchWeapon(1);
 
+            CreatePlayerGUI(ref playerSession);
+            
+            var list = InitializesGameScenery();
+            var loopScripts = InitializesGameLoopScripts();
+            
+            _gameScenery.Initialize(list, loopScripts);
+            
             Cursor.lockState = CursorLockMode.Locked;
+        }
+
+        private List<GameLoopScript> InitializesGameLoopScripts()
+        {
+            var levers = GameObject.FindGameObjectsWithTag(Tags.Trigger);
+
+            var list = new List<GameLoopScript>();
+
+            foreach (var gameObject in levers)
+            {
+                list.Add(gameObject.GetComponent<GameLoopScript>());
+            }
+
+            return list;
+        }
+
+        private static List<Lever> InitializesGameScenery()
+        {
+            //var levers = _sceneReferenceService.Find<Lever>(Tags.Lever);
+            var levers = GameObject.FindGameObjectsWithTag(Tags.Lever);
+
+            var list = new List<Lever>();
+
+            foreach (var gameObject in levers)
+            {
+                list.Add(gameObject.GetComponent<Lever>());
+            }
+
+            return list;
         }
 
         private void InitializeCamera(PlayerCharacterView playerCharacterView)
@@ -74,6 +118,14 @@ namespace Something.Scripts.Architecture.GameInfrastucture
             var mainCamera = _sceneReferenceService.GetMainCamera();
             mainCamera.Initalize(playerCharacterView);
             mainCamera.StateMachine.SetState<CameraPlayerState>();
+        }
+        
+        public PlayerUIPresenter CreatePlayerInterface(Player player)
+        {
+            var view = _dataService.GetPlayerGUI();
+            var bruhPresenter = new PlayerUIPresenter(view, ref player);
+
+            return bruhPresenter;
         }
 
         private PlayerCharacterView CreateCharacter(out PlayerCharacterModel playerCharacterModel)

@@ -568,6 +568,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f22f5a9a7028cb4187a4d393c831f74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isViewInit: 0
   _weaponAnimator: {fileID: 6096966649319655152}
   _shootSource: {fileID: 8131183780871414159}
   _shootAudioSource: {fileID: 4969471120453094491}

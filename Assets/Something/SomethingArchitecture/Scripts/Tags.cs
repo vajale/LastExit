@@ -9,5 +9,7 @@
         public const string EnemySpawnPoint = "EnemySpawnPoint";
         public const string EnemySpawner = "EnemySpawner";
         public const string NavMeshSurface = "NavMeshSurface";
+        public const string Lever = "Lever";
+        public const string Trigger = "Trigger";
     }
 }

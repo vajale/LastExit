@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 9173622949975669939}
   - component: {fileID: 9173622949975669940}
   m_Layer: 0
-  m_Name: EnemySpawner
-  m_TagString: EnemySpawner
+  m_Name: EnemySpawnerOnLoop
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

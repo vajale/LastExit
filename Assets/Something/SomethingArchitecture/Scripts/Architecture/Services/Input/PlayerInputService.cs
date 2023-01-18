@@ -7,6 +7,7 @@ namespace Something.Scripts.Architecture.Services
     public class PlayerInputService : IInputService
     {
         public Vector2 Axis => inputAxis;
+        public bool InteractButton => Input.GetKeyDown(KeyCode.E);
         public bool RightMouseButton => Input.GetKeyDown(KeyCode.Mouse0);
         public bool LeftMouseButton => Input.GetKeyDown(KeyCode.Mouse1);
         public bool ReloadButton => Input.GetKeyDown(KeyCode.R);
@@ -18,6 +19,7 @@ namespace Something.Scripts.Architecture.Services
 
     public interface IInputService : IService
     {
+        bool InteractButton { get; }
         Vector2 Axis { get; }
         bool RightMouseButton { get; }
         bool LeftMouseButton { get; }

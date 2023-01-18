@@ -22,6 +22,7 @@ namespace Something.SomethingArchitecture.Scripts.Architecture
             public Vector2 Axis =>
                 new Vector2(_inputService.Axis.X, _inputService.Axis.Y);
 
+            public bool Interact => _inputService.InteractButton;
             public bool WeaponInteractInvoke => _inputService.RightMouseButton;
             public bool WeaponInteractInvoke2 => _inputService.LeftMouseButton;
             public bool WeaponReloadInteract => _inputService.ReloadButton;
