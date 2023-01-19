@@ -2,7 +2,7 @@
 {
     public enum EnemyCharacterID
     {
-        Monster = 0,
+        Mummy = 0,
         Bruh = 10,
         Zombie = 20,
     }

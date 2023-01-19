@@ -2,17 +2,11 @@
 using Something.Scripts.Something.Weapon.Base;
 using UnityEngine;
 
-
-public class UnitBodyPresenter : MonoBehaviour
+public abstract class UnitBodyPresenter : MonoBehaviour
 {
-    public Action<IAmmo, float> Visit { get; set; }
+    public abstract Action<IAmmo, float> Visit { get; set; }
 
-    private void SpawnShit(RaycastHit hit)
-    {
-    }
+    protected abstract void SpawnShit(RaycastHit hit);
+    public abstract void SpawnParticliesOnPoint(RaycastHit raycastHit);
 
-    public void SpawnParticliesOnPoint(RaycastHit raycastHit)
-    {
-        
-    }
 }

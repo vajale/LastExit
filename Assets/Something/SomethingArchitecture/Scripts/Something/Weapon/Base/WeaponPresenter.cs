@@ -35,7 +35,7 @@ namespace Something.Scripts.Something.Weapon.Base
             _currentMagazine = weaponMagazine;
         }
 
-        private void ReloadWeapon()
+        private void ReloadWeaponModel()
         {
             WeaponModel.ReloadMagazine(_currentMagazine);
         }
@@ -43,14 +43,14 @@ namespace Something.Scripts.Something.Weapon.Base
         private void Initialize()
         {
             WeaponModel.AttackPerformed += View.OnPerformShoot;
-            View.ReloadAnimationComplete += ReloadWeapon;
+            View.ReloadAnimationComplete += ReloadWeaponModel;
             View.Destroy += OnViewDestroy;
         }
 
         private void Uintialize()
         {
             WeaponModel.AttackPerformed -= View.OnPerformShoot;
-            View.ReloadAnimationComplete -= ReloadWeapon;
+            View.ReloadAnimationComplete -= ReloadWeaponModel;
             View.Destroy -= OnViewDestroy;
         }
 

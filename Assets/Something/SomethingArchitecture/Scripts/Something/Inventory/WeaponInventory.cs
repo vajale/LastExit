@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Something.Scripts.Something.Weapon.AmmoTypes;
 using Something.Scripts.Something.Weapon.Base;
 using Something.SomethingArchitecture.Scripts.Architecture.Factory.Interface;
 using Something.SomethingArchitecture.Scripts.Something.Weapon.Factory;
@@ -11,6 +12,7 @@ namespace Something.SomethingArchitecture.Scripts.Something.Characters.Base
     {
         private readonly Dictionary<WeaponTypeId, WeaponPresenter> _weapons;
         private readonly List<WeaponPresenter> _equippedList;
+        private readonly List<IWeaponMagazine> _weaponMagazines;
         private readonly Transform _transform;
         private readonly IWeaponFactory _weaponFactory;
         private int _currentWeaponIndex;
@@ -20,6 +22,7 @@ namespace Something.SomethingArchitecture.Scripts.Something.Characters.Base
             _transform = weaponTransform;
             _weaponFactory = weaponFactory;
             _equippedList = new List<WeaponPresenter>();
+            _weaponMagazines = new List<IWeaponMagazine>();
             _weapons = new Dictionary<WeaponTypeId, WeaponPresenter>();
             _currentWeaponIndex = 0;
         }
@@ -52,6 +55,41 @@ namespace Something.SomethingArchitecture.Scripts.Something.Characters.Base
             {
                 SetInteractWeapon(_currentWeaponIndex);
             }
+        }
+
+        public void AddMagazine(WeaponTypeId weaponTypeId)
+        {
+            WeaponMagazine weaponMagazine;
+
+            switch (weaponTypeId)
+            {
+                case WeaponTypeId.Pistol:
+                    weaponMagazine = new WeaponMagazine(7, new UspAmmo(), weaponTypeId);
+                    _weaponMagazines.Add(weaponMagazine);
+                    break;
+                case WeaponTypeId.Rifle:
+                    weaponMagazine = new WeaponMagazine(30, new RifleAmmo(), weaponTypeId);
+                    _weaponMagazines.Add(weaponMagazine);
+                    break;
+                case WeaponTypeId.ShootGun:
+                    break;
+            }
+        }
+
+        public bool GetMagazine(WeaponTypeId currentWeaponType, out IWeaponMagazine weaponMagazine)
+        {
+            foreach (var magazine in _weaponMagazines)
+            {
+                if (magazine.IsEmpty == false & (magazine.WeaponTypeId == currentWeaponType))
+                {
+                    weaponMagazine = magazine;
+                        
+                    return true;
+                }
+            }
+
+            weaponMagazine = null;
+            return false;
         }
 
         public void SwitchWeapon(int weaponIndex)

@@ -32,7 +32,7 @@ namespace Something.SomethingArchitecture.Scripts.Something.Characters.Enemy
             if (navMeshAgent == null)
                 throw new Exception("Prefab has no component found NavMeshAgent!");
 
-            prefab.TryGetComponent(out UnitBodyPresenter unitBodyComponent);
+            prefab.TryGetComponent(out EnemyUnitBodyPresenter unitBodyComponent);
             if (unitBodyComponent == null)
                 throw new Exception("CharacterInstance not contains UnitBodyComponent component");
             

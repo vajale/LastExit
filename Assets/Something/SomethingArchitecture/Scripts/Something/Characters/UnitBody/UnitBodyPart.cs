@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class UnitBodyPart : MonoBehaviour, IWeaponVisitor
 {
-    [SerializeField] private UnitBodyPresenter bodyOwner;
+    [SerializeField] private EnemyUnitBodyPresenter bodyOwner;
     [SerializeField] private float damageMultiplier = 1f;
 
     public void Visit(RifleAmmo rifleAmmo, RaycastHit raycastHit)

@@ -1,29 +1,35 @@
-﻿using Something.Scripts.Something.Characters;
+﻿using System;
+using Something.Scripts.Something.Characters;
 using Something.Scripts.Something.Weapon.Base;
 using UnityEngine;
 
 public class UnitBody
 {
     public Health Health { get; private set; }
-    private readonly UnitBodyPresenter _unitBodyComponent;
+    private readonly UnitBodyPresenter _unitBodyPresenter;
 
-    public UnitBody(Health health, UnitBodyPresenter unitBodyComponent)
+    public event Action HealthEnded;
+
+    public UnitBody(Health health, UnitBodyPresenter unitBodyPresenter)
     {
-        _unitBodyComponent = unitBodyComponent;
+        _unitBodyPresenter = unitBodyPresenter;
         Health = health;
-
+        
         Initialize();
     }
 
     private void Initialize()
     {
-        _unitBodyComponent.Visit += ApplyDamage;
+        _unitBodyPresenter.Visit += ApplyDamage;
+
     }
 
     private void ApplyDamage(IAmmo ammo, float damageMultiplier)
     {
         var finalDamage = ammo.Damage * damageMultiplier;
         Health.TakeDamage(finalDamage);
+        
+        Debug.Log("Health is" + Health.Count);
     }
 
     #region ammoTypeShit

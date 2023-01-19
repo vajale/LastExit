@@ -32,12 +32,6 @@ namespace Something.SomethingArchitecture.Scripts.Architecture.Factory
 
             WeaponMagazine weaponMagazine = null;
 
-            if (weaponTypeId == WeaponTypeId.Rifle)
-                weaponMagazine = new WeaponMagazine(30, new RifleAmmo());
-            
-            if (weaponTypeId == WeaponTypeId.Pistol)
-                weaponMagazine = new WeaponMagazine(7, new UspAmmo());
-
             raycastLogic = new RaycastShootLogic(data.SpreadMultiplier, data.UseSpread, view.ShootSource);
 
             var weaponModel = new WeaponModel(data, raycastLogic, weaponMagazine);

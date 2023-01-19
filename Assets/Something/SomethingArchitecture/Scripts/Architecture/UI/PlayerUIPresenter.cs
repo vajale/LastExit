@@ -78,8 +78,6 @@ public class PlayerUIPresenter
 
     private void OnReloadWeapon(int value)
     {
-        Debug.Log("reload");
-
         var currentWeapon = _model.CurrentPlayableCharacter.WeaponInventory.CurrentWeapon.WeaponModel;
         var ammoCount = currentWeapon.CurrentWeaponMagazine.Ammo;
         var magazineCapacity = currentWeapon.CurrentWeaponMagazine.MagazineCapacity;

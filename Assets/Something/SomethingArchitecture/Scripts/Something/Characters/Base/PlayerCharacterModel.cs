@@ -78,21 +78,10 @@ namespace Something.SomethingArchitecture.Scripts.Something.Characters.Base
 
             if (_inputContext.WeaponReloadInteract)
             {
-                IWeaponMagazine weaponMagazine = null;
-
-                switch (WeaponInventory.CurrentWeapon.Type)
+                if (WeaponInventory.GetMagazine(WeaponInventory.CurrentWeapon.Type, out var newMagazine))
                 {
-                    case WeaponTypeId.Pistol:
-                        var pistol = new UspAmmo();
-                        weaponMagazine = new WeaponMagazine(7, pistol);
-                        break;
-                    case WeaponTypeId.Rifle:
-                        var rifle = new RifleAmmo();
-                        weaponMagazine = new WeaponMagazine(30, rifle);
-                        break;
+                    WeaponInventory.CurrentWeapon.Reload(newMagazine);
                 }
-
-                WeaponInventory.CurrentWeapon.Reload(weaponMagazine);
             }
         }
 

@@ -27,6 +27,7 @@ namespace Something.SomethingArchitecture.Scripts.Architecture
             public bool WeaponInteractInvoke2 => _inputService.LeftMouseButton;
             public bool WeaponReloadInteract => _inputService.ReloadButton;
             public float MouseScrollWheel => _inputService.MouseScrollWheel;
+            public bool JumpButton => _inputService.JumpButton;
         }
 
         private IInputContext _contextCurrent;
