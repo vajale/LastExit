@@ -12,9 +12,9 @@ namespace Something.Scripts.Architecture.Services
         public bool LeftMouseButton => Input.GetKeyDown(KeyCode.Mouse1);
         public bool ReloadButton => Input.GetKeyDown(KeyCode.R);
         private Vector2 inputAxis => new Vector2(Input.GetAxis("Vertical"), Input.GetAxis("Horizontal"));
-            
-        public float MouseScrollWheel => Input.GetAxisRaw("Mouse ScrollWheel");
 
+        public float MouseScrollWheel => Input.GetAxisRaw("Mouse ScrollWheel");
+        public bool JumpButton => Input.GetKeyDown(KeyCode.Space);
     }
 
     public interface IInputService : IService
@@ -25,5 +25,6 @@ namespace Something.Scripts.Architecture.Services
         bool LeftMouseButton { get; }
         bool ReloadButton { get; }
         float MouseScrollWheel { get; }
+        bool JumpButton { get; }
     }
 }

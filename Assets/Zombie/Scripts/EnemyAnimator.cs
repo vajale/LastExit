@@ -55,31 +55,31 @@ public class EnemyAnimator : MonoBehaviour
 
     void Update()
     {
-        // anim.SetFloat("Health", HPEnemi);
-        //
-        // if (HPEnemi != 0)
-        // {
-        //
-        //     if (Vector3.Distance(transform.position, target.transform.position) < seeDistance)
-        //     {
-        //         Debug.Log("VIDIT");
-        //         if (Vector3.Distance(transform.position, target.transform.position) > attackDistance)
-        //         {
-        //             Run();
-        //         }
-        //
-        //         else if (Vector3.Distance(transform.position, target.transform.position) < attackDistance)
-        //         {
-        //             Attacking();
-        //         }
-        //     }
-        //     else
-        //     {
-        //         Idle();
-        //     }
-        // }
-        // else
-        //     Die();
-        //
+        //anim.SetFloat("Health", HPEnemi);
+
+        //if (HPEnemi != 0)
+        //{
+
+        //    if (Vector3.Distance(transform.position, target.transform.position) < seeDistance)
+        //    {
+        //        Debug.Log("VIDIT");
+        //        if (Vector3.Distance(transform.position, target.transform.position) > attackDistance)
+        //        {
+        //            Run();
+        //        }
+
+        //        else if (Vector3.Distance(transform.position, target.transform.position) < attackDistance)
+        //        {
+        //            Attacking();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        Idle();
+        //    }
+        //}
+        //else
+        //    Die();
+
     }
 }

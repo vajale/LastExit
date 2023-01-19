@@ -71,8 +71,11 @@ namespace Something.Scripts.Architecture.GameInfrastucture
             _gameplayService.GiveWeapon(WeaponTypeId.Pistol, playerCharacter);
             
             playerSession.CurrentPlayableCharacter.WeaponInventory.SwitchWeapon(1);
-            playerSession.CurrentPlayableCharacter.WeaponInventory.SwitchWeapon(1);
-            playerSession.CurrentPlayableCharacter.WeaponInventory.SwitchWeapon(1);
+            playerSession.CurrentPlayableCharacter.WeaponInventory.AddMagazine(WeaponTypeId.Rifle);
+            playerSession.CurrentPlayableCharacter.WeaponInventory.AddMagazine(WeaponTypeId.Rifle);
+            playerSession.CurrentPlayableCharacter.WeaponInventory.AddMagazine(WeaponTypeId.Rifle);
+            playerSession.CurrentPlayableCharacter.WeaponInventory.AddMagazine(WeaponTypeId.Pistol);
+            playerSession.CurrentPlayableCharacter.WeaponInventory.AddMagazine(WeaponTypeId.Pistol);
 
             CreatePlayerGUI(ref playerSession);
             
@@ -80,8 +83,14 @@ namespace Something.Scripts.Architecture.GameInfrastucture
             var loopScripts = InitializesGameLoopScripts();
             
             _gameScenery.Initialize(list, loopScripts);
+            _gameScenery.Ended += CreateEndGameExecution;
             
             Cursor.lockState = CursorLockMode.Locked;
+        }
+
+        private void CreateEndGameExecution()
+        {
+            
         }
 
         private List<GameLoopScript> InitializesGameLoopScripts()

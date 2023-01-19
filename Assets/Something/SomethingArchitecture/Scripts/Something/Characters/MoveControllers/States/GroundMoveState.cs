@@ -1,3 +1,4 @@
+using System;
 using Something.SomethingArchitecture.Scripts.Architecture.Data;
 using Something.SomethingArchitecture.Scripts.Architecture.Utilities.StateMachine;
 using Something.SomethingArchitecture.Scripts.Something.Characters.MoveControllers;
@@ -12,7 +13,8 @@ namespace Something.Scripts.Something.Characters.MoveControllers.States
         private readonly StandartMoveController _standartMoveController;
         private float _currentSpeed;
 
-        public GroundMoveState(StateMachine<IInputState> stateMachine, CharacterData characterData, StandartMoveController standartMoveController)
+        public GroundMoveState(StateMachine<IInputState> stateMachine, CharacterData characterData,
+            StandartMoveController standartMoveController)
         {
             _stateMachine = stateMachine;
             _characterData = characterData;
@@ -30,14 +32,32 @@ namespace Something.Scripts.Something.Characters.MoveControllers.States
 
         public void Update()
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void Update(IInputContext inputContext)
         {
             var xAxis = inputContext.Axis.X;
             var yAxis = inputContext.Axis.Y;
-            _standartMoveController.SetMoveVector(GetMoving(xAxis, yAxis));
+
+            _standartMoveController.SetMoveVector(GetMoving(xAxis, yAxis) + GetJump(inputContext));
+        }
+
+        private Vector3 GetJump(IInputContext inputContext)
+        {
+            var jumpButton = inputContext.JumpButton;
+
+            if (jumpButton)
+            {
+                Debug.Log("jump");
+                
+                var start = new Vector3(0, 0, 0);
+                var jumpVector = new Vector3(0, _characterData.JumpSpeed, 0);
+                
+                return Vector3.Lerp(start, jumpVector, 20);;
+            }
+
+            return Vector3.zero;
         }
 
         private Vector3 CalculatedDirection(float xAxis, float yAxis)
@@ -63,7 +83,7 @@ namespace Something.Scripts.Something.Characters.MoveControllers.States
 
         private Vector3 ApplyGravity()
         {
-            var gravityVector = Vector3.down * 9.8f;
+            var gravityVector = Vector3.down * 2;
             gravityVector *= _characterData.GravityMultiplier;
 
             return gravityVector;

@@ -6,7 +6,7 @@ namespace Something.Scripts.Something.Weapon.AmmoTypes
     {
         public int Damage
         {
-            get { return 5; }
+            get { return 7; }
         }
     }
 }

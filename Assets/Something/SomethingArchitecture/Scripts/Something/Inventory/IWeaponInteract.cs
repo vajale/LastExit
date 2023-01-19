@@ -14,5 +14,7 @@ namespace Something.SomethingArchitecture.Scripts.Something.Characters.Base
         event Action Added;
         void AddWeapon(WeaponTypeId weaponTypeId);
         void SwitchWeapon(float axis);
+        void AddMagazine(WeaponTypeId weaponTypeId);
+        bool GetMagazine(WeaponTypeId currentWeaponType, out IWeaponMagazine magazine);
     }
 }

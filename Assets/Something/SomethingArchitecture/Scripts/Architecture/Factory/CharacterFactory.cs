@@ -30,7 +30,7 @@ namespace SomethingArchitecture.Scripts.Architecture.Factory
             if (characterControllerComponent == null)
                 throw new Exception("CharacterView not contains CharacterController component");
 
-            characterInstance.TryGetComponent(out UnitBodyPresenter unitBodyComponent);
+            characterInstance.TryGetComponent(out EnemyUnitBodyPresenter unitBodyComponent);
             if (unitBodyComponent == null)
                 throw new Exception("CharacterInstance not contains UnitBodyComponent component");
 
