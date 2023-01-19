@@ -1,0 +1,9 @@
+Albedo.bmp filter=lfs diff=lfs merge=lfs -text
+Assets/Rubble filter=lfs diff=lfs merge=lfs -text
+Pieces filter=lfs diff=lfs merge=lfs -text
+Detailed filter=lfs diff=lfs merge=lfs -text
+Package filter=lfs diff=lfs merge=lfs -text
+1.1/Textures/Albedo/Plasterboard filter=lfs diff=lfs merge=lfs -text
+Type filter=lfs diff=lfs merge=lfs -text
+1 filter=lfs diff=lfs merge=lfs -text
+*Albedo.bmp filter=lfs diff=lfs merge=lfs -text
